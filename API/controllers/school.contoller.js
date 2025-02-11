@@ -41,4 +41,39 @@ module.exports = {
             res.status(500).json({ success: false, message: 'School Registration Failed.' })
         }
     },
+
+    login_School: async (req, res) => {
+        try {
+            const school = await School.findOne({ email: req.body.email });
+            if (school) {
+                const isAuth = bcrypt.compareSync(req.body.password, school.password);
+                if (isAuth) {
+
+                    const jwtSecret = process.env.JWT_SECRET;
+                    const token = jwt.sign({
+                        id: school._id,
+                        schoolId: school._id,
+                        owner_name: school.owner_name,
+                        school_name: school.school_name,
+                        image_url: school.school_image,
+                        role: "SCHOOL"
+                    }, jwtSecret);
+                    res.header('Authorization', token)
+                    res.status(200).json({
+                        success: true, message: 'Success Login!',
+                        user: {
+
+                        }
+                    })
+                } else {
+                    res.status(401).json({ success: false, message: 'Password is incorrect.' })
+                }
+            } else {
+                res.status(401).json({ success: false, message: 'Email is not rigestered.' })
+            }
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Internal Server Error [SCHOOL LOGIN].' })
+        }
+
+    }
 }
