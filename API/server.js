@@ -10,6 +10,14 @@ const app = express();
 app.use(cors());
 app.use(cookieParser())
 
+//! MONGODB CONNECTION
+mongoose.connect('mongodb://localhost:27017/schoolManagementPorkar')
+    .then(db => {
+        console.log('Mongodb is connected Successfully')
+    }).catch(err => {
+        console.log("Mongodb err",err)
+    })
+
 //! listen port
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
