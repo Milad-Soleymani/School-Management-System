@@ -84,6 +84,58 @@ module.exports = {
             res.status(500).json({ success: false, message: 'Internal Server Error [ALL SCHOOL DATA].' })
         }
     },
-    
+    getSchoolOwnData: async (req, res) => {
+        try {
+            const id = '';
+            const school = await School.findOne({ _id: id })
+            if (school) {
+                res.status(200).json({ success: true, school })
+            } else {
+                res.status(404).json({ success: false, message: 'School not found.' })
+            }
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Internal Server Error [ OWN SCHOOL DATA].' })
+
+        }
+    },
+    updateSchool: async (req, res) => {
+        try {
+            const id = '';
+            const form = new formidable.IncomingForm();
+            form.parse(req, async (err, fields, files) => {
+
+                const school = await School.findOne({ _id: id });
+                if (files.image) {
+                    const photo = files.image[0];
+                    let filePath = photo.filepath;
+                    let originalFileName = photo.originalFilename.replace(" ", "_");
+
+                    if(school.school_image ){
+                        let oldImagePath = path.join(__dirname, process.env.SCHOOL_IMAGE_PATH, school.school_image); 
+                        if(fs.existsSync(oldImagePath)){
+                            fs.unlink(oldImagePath, (err) => {
+                                if(err) console.log("Error deleting old image.", err)
+                            })
+                        }
+                    }
+                    
+                    let newPath = path.join(__dirname, process.env.SCHOOL_IMAGE_PATH, originalFileName);
+                    let photoData = fs.readFileSync(filePath);
+                    fs.writeFileSync(newPath, photoData);
+
+
+                    Object.keys(fields).forEach((field) => {
+                        school[field]= fields[field][0]
+                    })
+                    await school.save();
+                    res.status(200).json({success: true, message:'School updated successfully.', school})
+                }
+
+
+            })
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'School Registration Failed.' })
+        }
+    },
 
 }
