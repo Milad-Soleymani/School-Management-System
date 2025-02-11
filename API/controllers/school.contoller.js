@@ -75,5 +75,15 @@ module.exports = {
             res.status(500).json({ success: false, message: 'Internal Server Error [SCHOOL LOGIN].' })
         }
 
-    }
+    },
+    getAllSchools: async (req, res) => {
+        try {
+            const schools = await School.find().select(["-password", '._id', '-email', '-owner_name', 'createdAt']);
+            res.status(200).json({ success: true, message: 'Success in fetching all schools.', schools })
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Internal Server Error [ALL SCHOOL DATA].' })
+        }
+    },
+    
+
 }
