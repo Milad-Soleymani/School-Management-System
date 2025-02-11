@@ -5,8 +5,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
-//! Create express app
+//! Create express app & use middleware
 const app = express();
+app.use(cors());
+app.use(cookieParser())
 
 //! listen port
 const PORT = process.env.PORT;
