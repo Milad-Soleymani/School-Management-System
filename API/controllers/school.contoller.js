@@ -42,7 +42,7 @@ module.exports = {
         }
     },
 
-    login_School: async (req, res) => {
+    loginSchool: async (req, res) => {
         try {
             const school = await School.findOne({ email: req.body.email });
             if (school) {
