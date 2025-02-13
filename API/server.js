@@ -5,20 +5,27 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
+// ! Import Routers
+const schoolRouter = require("./routers/school.router");
+
 //! Create express app & use middleware
 const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(cookieParser())
+app.use(cookieParser());
 
 //! MONGODB CONNECTION
 mongoose.connect('mongodb://localhost:27017/schoolManagementPorkar')
     .then(db => {
         console.log('Mongodb is connected Successfully')
     }).catch(err => {
-        console.log("Mongodb err",err)
+        console.log("Mongodb err", err)
     })
+
+// ! Routers
+app.use('/api/school', schoolRouter);
+
 
 //! listen port
 const PORT = process.env.PORT;
