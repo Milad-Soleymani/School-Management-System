@@ -18,11 +18,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* SCHOOL ROUTE */}
-          
-            <Route path='school' element={<School />}>
+
+          <Route path='school' element={<School />}>
+            <Route index element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard />} />
             <Route path='attendance' element={<Attendance />} />
             <Route path='class' element={<Class />} />
-            <Route path='dashboard' element={<Dashboard />} />
             <Route path='examinations' element={<Examinations />} />
             <Route path='notice' element={<Notice />} />
             <Route path='schedule' element={<Schedule />} />
