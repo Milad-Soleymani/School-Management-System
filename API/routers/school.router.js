@@ -1,6 +1,6 @@
 const express = require('express');
 const authMiddleware = require("../auth/auth.js")
-const { registerSchool, getAllSchools, loginSchool, updateSchool, getSchoolOwnData } = require('../controllers/school.contoller');
+const { registerSchool, getAllSchools, loginSchool, updateSchool, getSchoolOwnData } = require('../controllers/school.controller.js');
 
 const router = express.Router();
 
