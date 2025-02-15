@@ -1,5 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import School from './school/school';
+import Attendance from './school/components/attendance/attendance';
 
 function App() {
 
@@ -8,8 +10,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* SCHOOL ROUTE */}
-          <Route>
-            <Route path='school' element={ } />
+          
+            <Route path='school' element={<School />}>
+            <Route path='attendance' element={<Attendance />} />
 
           </Route>
           {/* STUDENT */}
