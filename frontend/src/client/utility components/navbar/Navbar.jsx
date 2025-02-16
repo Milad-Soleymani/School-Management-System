@@ -20,17 +20,12 @@ const pages = [
     { link: '/login', component: 'Login' },
     { link: '/register', component: 'Register' },
 ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
     };
 
     const navigate = useNavigate()
@@ -40,9 +35,7 @@ function Navbar() {
         navigate(link);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
+
 
     return (
         <AppBar position="static">
@@ -130,14 +123,6 @@ function Navbar() {
                                 {page.component}
                             </Button>
                         ))}
-                    </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-
                     </Box>
                 </Toolbar>
             </Container>
