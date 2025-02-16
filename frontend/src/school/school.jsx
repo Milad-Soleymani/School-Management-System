@@ -33,7 +33,7 @@ import ExplicitIcon from '@mui/icons-material/Explicit';
 import TextFormatIcon from '@mui/icons-material/TextFormat';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -131,7 +131,7 @@ export default function School() {
     const navArr = [
         { link: '/school', component: 'Dashboard', icon:DashboardIcon },
         { link: '/school/class', component: 'Class', icon: FormatListNumberedIcon },
-        { link: '/school/subject', component: 'Subject', icon: SubjectIcon },
+        { link: '/school/subjects', component: 'Subject', icon: SubjectIcon },
         { link: '/school/students', component: 'Students', icon: PeopleIcon },
         { link: '/school/teachers', component: 'Teachers', icon: PeopleAltIcon },
         { link: '/school/schedule', component: 'Schedule', icon: EventIcon },
@@ -139,6 +139,11 @@ export default function School() {
         { link: '/school/examinations', component: 'Eaminations', icon: ExplicitIcon },
         { link: '/school/notice', component: 'Notice', icon: NotificationsIcon },
     ]
+
+    const navigate = useNavigate();
+    const handleNavigation = (link) => {
+        navigate(link)
+    }
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -187,6 +192,7 @@ export default function School() {
                                             justifyContent: 'center',
                                         },
                                 ]}
+                                onClick={()=>{handleNavigation(navItem.link)}}
                             >
                                 <ListItemIcon
                                     sx={[
