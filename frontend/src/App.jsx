@@ -15,6 +15,11 @@ import Register from './client/components/register/Register';
 import Home from './client/components/home/Home';
 import Login from './client/components/login/Login';
 import Teacher from './teacher/Teacher';
+import TeacherDetails from './teacher/components/teacher details/TeacherDetails';
+import ScheduleTeacher from './teacher/components/schedule/scheduleTeacher';
+import AttendanceTeacher from './teacher/components/attendance/AttendanceTeacher';
+import ExaminationsTeacher from './teacher/components/examinations/ExaminationsTeacher';
+import NoticeTeacher from './teacher/components/notice/NoticeTeacher';
 
 function App() {
 
@@ -42,7 +47,13 @@ function App() {
 
           </Route>
           {/* TEACHER */}
-          <Route path='teacher' element={<Teacher />} />
+          <Route path='teacher' element={<Teacher />}>
+            <Route index element={<TeacherDetails />} />
+            <Route path='schedule' element={<ScheduleTeacher />} />
+            <Route path='attendance' element={<AttendanceTeacher />} />
+            <Route path='examinations' element={<ExaminationsTeacher />} />
+            <Route path='notice' element={<NoticeTeacher />} />
+          </Route>
           {/* CLIENT */}
 
           <Route path='/' element={<Client />}>
