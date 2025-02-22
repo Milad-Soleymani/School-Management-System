@@ -14,6 +14,7 @@ import Client from './client/Client';
 import Register from './client/components/register/Register';
 import Home from './client/components/home/Home';
 import Login from './client/components/login/Login';
+import Teacher from './teacher/Teacher';
 
 function App() {
 
@@ -41,9 +42,7 @@ function App() {
 
           </Route>
           {/* TEACHER */}
-          <Route>
-
-          </Route>
+          <Route path='teacher' element={<Teacher />} />
           {/* CLIENT */}
 
           <Route path='/' element={<Client />}>
