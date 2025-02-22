@@ -34,6 +34,7 @@ import TextFormatIcon from '@mui/icons-material/TextFormat';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import { Outlet, useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
@@ -129,6 +130,7 @@ export default function School() {
 
     // eslint-disable-next-line no-unused-vars
     const navArr = [
+        { link: '/', component: 'Home', icon:HomeIcon},
         { link: '/school', component: 'Dashboard', icon:DashboardIcon },
         { link: '/school/class', component: 'Class', icon: FormatListNumberedIcon },
         { link: '/school/subjects', component: 'Subject', icon: SubjectIcon },

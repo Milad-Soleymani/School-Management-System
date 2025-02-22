@@ -34,6 +34,8 @@ import TextFormatIcon from '@mui/icons-material/TextFormat';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import { Outlet, useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+
 
 const drawerWidth = 240;
 
@@ -115,7 +117,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Students() {
+export default function Student() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -129,6 +131,7 @@ export default function Students() {
 
     // eslint-disable-next-line no-unused-vars
     const navArr = [
+        { link: '/', component: 'Home', icon:HomeIcon},
         { link: '/student', component: 'Your Details', icon:DashboardIcon },
         { link: '/student/schedule', component: 'Schedule', icon: EventIcon },
         { link: '/student/attendance', component: 'Attendance', icon: RecentActorsIcon },

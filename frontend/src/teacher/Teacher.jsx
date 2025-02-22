@@ -33,6 +33,7 @@ import ExplicitIcon from '@mui/icons-material/Explicit';
 import TextFormatIcon from '@mui/icons-material/TextFormat';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import HomeIcon from '@mui/icons-material/Home';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -129,7 +130,7 @@ export default function Teacher() {
 
     // eslint-disable-next-line no-unused-vars
     const navArr = [
-        { link: '/teacher', component: 'Dashboard', icon:DashboardIcon },
+        { link: '/', component: 'Home', icon:HomeIcon},
         { link: '/teacher/schedule', component: 'Schedule', icon: EventIcon },
         { link: '/teacher/attendance', component: 'Attendance', icon: RecentActorsIcon },
         { link: '/teacher/examinations', component: 'Eaminations', icon: ExplicitIcon },
