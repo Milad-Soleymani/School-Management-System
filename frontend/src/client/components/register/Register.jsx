@@ -18,7 +18,7 @@ export default function Register() {
     const Formik = useFormik({
         initialValues,
         validationSchema: registerSchema,
-        onsubmit: (values) => {
+        onSubmit: (values) => {
             console.log("Register submit values", values)
         }
     })
@@ -30,7 +30,8 @@ export default function Register() {
                 '& > :not(style)': { m: 1}, display: 'flex',
                 flexDirection: 'column',
                 width: '60vw',
-                minWidth: '230px'
+                minWidth: '230px',
+                margin: 'auto'
             }}
             noValidate
             autoComplete="off"
@@ -91,7 +92,7 @@ export default function Register() {
 
             {Formik.touched.confirm_password && Formik.errors.confirm_password && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.confirm_password}</p>}
 
-            <Button type='submit'> Submit </Button>
+            <Button type='submit' variant='content'> Submit </Button>
 
         </Box>
     );
