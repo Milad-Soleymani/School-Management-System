@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { registerSchema } from '../../../yupSchema/registerSchema';
 import { useFormik } from 'formik'
 import { Button, CardMedia, Typography } from '@mui/material';
+import { ref } from 'yup';
 export default function Register() {
 
     const [file, setFile] = React.useState(null);
@@ -15,7 +16,17 @@ export default function Register() {
         setImageUrl(URL.createObjectURL(file));
         setFile(file);
     }
-    
+ // ! RESETING IMAGE 
+ 
+ const fileInputRefrence = React.useRef(null);
+const handleClearFile = () => {
+    if(fileInputRefrence.current){
+        fileInputRefrence.current.value = ''
+    }
+    setFile(null);
+    setImageUrl(null);
+}
+
 
     const initialValues = {
         school_name: "",
@@ -29,7 +40,8 @@ export default function Register() {
         validationSchema: registerSchema,
         onSubmit: (values) => {
             console.log("Register submit values", values);
-            Formik.resetForm(0)
+            Formik.resetForm(0);
+            handleClearFile();
         }
     })
 
@@ -52,6 +64,7 @@ export default function Register() {
             <Typography> Add School Picture </Typography>
             <TextField
                 type='file'
+                inputRef={fileInputRefrence}
                 onChange={(event) => { addImage(event) }}
             />
             {imageUrl && <Box>
