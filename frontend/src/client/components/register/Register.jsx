@@ -73,6 +73,7 @@ export default function Register() {
             <TextField
                 name='password'
                 label="Password"
+                type='password'
                 value={Formik.values.password}
                 onChange={Formik.handleChange}
                 onBlur={Formik.handleBlur}
@@ -84,6 +85,7 @@ export default function Register() {
             <TextField
                 name='confirm_password'
                 label="Confirm Password"
+                type='password'
                 value={Formik.values.confirm_password}
                 onChange={Formik.handleChange}
                 onBlur={Formik.handleBlur}
