@@ -5,8 +5,17 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { registerSchema } from '../../../yupSchema/registerSchema';
 import { useFormik } from 'formik'
-import { Button } from '@mui/material';
+import { Button, CardMedia, Typography } from '@mui/material';
 export default function Register() {
+
+    const [file, setFile] = React.useState(null);
+    const [imageUrl, setImageUrl] = React.useState(null)
+    const addImage = (event) => {
+        const file = event.target.files[0];
+        setImageUrl(URL.createObjectURL(file));
+        setFile(file);
+    }
+    
 
     const initialValues = {
         school_name: "",
@@ -19,7 +28,8 @@ export default function Register() {
         initialValues,
         validationSchema: registerSchema,
         onSubmit: (values) => {
-            console.log("Register submit values", values)
+            console.log("Register submit values", values);
+            Formik.resetForm(0)
         }
     })
 
@@ -27,7 +37,7 @@ export default function Register() {
         <Box
             component="form"
             sx={{
-                '& > :not(style)': { m: 1}, display: 'flex',
+                '& > :not(style)': { m: 1 }, display: 'flex',
                 flexDirection: 'column',
                 width: '60vw',
                 minWidth: '230px',
@@ -37,6 +47,20 @@ export default function Register() {
             autoComplete="off"
             onSubmit={Formik.handleSubmit}
         >
+
+
+            <Typography> Add School Picture </Typography>
+            <TextField
+                type='file'
+                onChange={(event) => { addImage(event) }}
+            />
+            {imageUrl && <Box>
+                <CardMedia component={"img"} height='240px' image={imageUrl} />
+            </Box>
+            }
+
+
+
             <TextField
                 name='school_name'
                 label="School Name"
