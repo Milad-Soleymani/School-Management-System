@@ -7,6 +7,7 @@ import { registerSchema } from '../../../yupSchema/registerSchema';
 import { useFormik } from 'formik'
 import { Button, CardMedia, Typography } from '@mui/material';
 import { ref } from 'yup';
+import axios from 'axios';
 export default function Register() {
 
     const [file, setFile] = React.useState(null);
@@ -16,16 +17,16 @@ export default function Register() {
         setImageUrl(URL.createObjectURL(file));
         setFile(file);
     }
- // ! RESETING IMAGE 
- 
- const fileInputRefrence = React.useRef(null);
-const handleClearFile = () => {
-    if(fileInputRefrence.current){
-        fileInputRefrence.current.value = ''
+    // ! RESETING IMAGE 
+
+    const fileInputRefrence = React.useRef(null);
+    const handleClearFile = () => {
+        if (fileInputRefrence.current) {
+            fileInputRefrence.current.value = ''
+        }
+        setFile(null);
+        setImageUrl(null);
     }
-    setFile(null);
-    setImageUrl(null);
-}
 
 
     const initialValues = {
@@ -40,9 +41,23 @@ const handleClearFile = () => {
         validationSchema: registerSchema,
         onSubmit: (values) => {
             console.log("Register submit values", values);
-            Formik.resetForm(0);
-            handleClearFile();
-        }
+            const fd = new FormData();
+            fd.append("image", file, file.name);
+            fd.append("school_name", values.school_name);
+            fd.append("email", values.email);
+            fd.append("owner_name", values.owner_name);
+            fd.append("password", values.password);
+
+            axios.post(`http://localhost:5000/api/school/register`, fd)
+                .then(res => { console.log(res) })
+                .catch(e => console.log(e))
+
+            // Formik.resetForm(0);
+            // handleClearFile();
+        },
+
+
+
     })
 
     return (

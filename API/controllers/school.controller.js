@@ -6,7 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
 
-const School = require('../models/schedule.model');
+const School = require('../models/school.model');
 
 module.exports = {
     registerSchool: async (req, res) => {
@@ -25,11 +25,12 @@ module.exports = {
                 fs.writeFileSync(newPath, photoData);
 
                 const salt = bcrypt.genSaltSync(10)
-                const hashPassword = bcrypt.hashSync(fields.password[0])
+                const hashPassword = bcrypt.hashSync(fields.password[0], salt)
                 const newSchool = new School({
                     school_name: fields.school_name[0],
                     email: fields.email[0],
                     owner_name: fields.owner_name[0],
+                    school_image: originalFileName,
                     password: hashPassword
                 })
 

@@ -5,8 +5,8 @@ const scheduleSchema = new mongoose.Schema({
     teacher: { type: mongoose.Schema.ObjectId, ref: 'Teacher' },
     subject: { type: mongoose.Schema.ObjectId, ref: 'Subject' },
     class: { type: mongoose.Schema.ObjectId, ref: 'Class' },
-    startTime:{type: Date, required: true},
-    endTime:{type: Date, required: true},
+    startTime: { type: Date, required: true },
+    endTime: { type: Date, required: true },
 
 
 
