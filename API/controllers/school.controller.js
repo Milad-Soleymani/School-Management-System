@@ -16,6 +16,10 @@ module.exports = {
         try {
             const form = new formidable.IncomingForm();
             form.parse(req, async (err, fields, files) => {
+                const school = await School.findOne({email:fields.email[0]});
+                if(school){
+                    return res.status(409).json({success: false, message:"Email is already registered."})
+                }else{
                 const photo = files.image[0];
                 let filePath = photo.filepath;
                 let originalFileName = photo.originalFilename.replace(" ", "_");
@@ -36,7 +40,7 @@ module.exports = {
 
                 const savedSchool = await newSchool.save();
                 res.status(200).json({ success: true, data: savedSchool, message: 'School is registered Successfully.' })
-
+            }
             })
         } catch (error) {
             res.status(500).json({ success: false, message: 'School Registration Failed.' })
