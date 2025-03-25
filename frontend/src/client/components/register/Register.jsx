@@ -78,21 +78,31 @@ export default function Register() {
     }
 
     return (
-        <>
+        <Box component={'div'} sx={{
+            background:
+                "url(https://cdn.pixabay.com/photo/2017/08/12/21/42/back2school-2635456_1280.png)",
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            height: '100%',
+            paddingTop: '60px',
+            paddingBottom: '60px'
+        }}>
             {message &&
-                <Box>
-                    <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
-                </Box >
+                <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             }
+            <Typography variant='h2' sx={{ textAlign: 'center', marginBottom: "50px", color: 'white' }}>Register</Typography>
+
+
 
             <Box
                 component="form"
                 sx={{
                     '& > :not(style)': { m: 1 }, display: 'flex',
                     flexDirection: 'column',
-                    width: '60vw',
+                    width: '50vw',
                     minWidth: '230px',
-                    margin: 'auto'
+                    margin: 'auto',
+                    background: '#fff'
                 }}
                 noValidate
                 autoComplete="off"
@@ -173,6 +183,6 @@ export default function Register() {
                 <Button type='submit' variant='content'> Submit </Button>
 
             </Box>
-        </>
+        </Box>
     );
 }
