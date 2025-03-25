@@ -43,31 +43,34 @@ export default function Register() {
         onSubmit: (values) => {
             console.log("Register submit values", values);
             const fd = new FormData();
-            fd.append("image", file, file.name);
-            fd.append("school_name", values.school_name);
-            fd.append("email", values.email);
-            fd.append("owner_name", values.owner_name);
-            fd.append("password", values.password);
 
-            axios.post(`http://localhost:5000/api/school/register`, fd)
-                .then(res => {
-                    console.log(res);
-                    setMessage(res.data.message);
-                    setMessageType('success')
-                    // Formik.resetForm(0);
-                    // handleClearFile();
-                }).catch(e => {
-                    setMessage(e.response.data.message);
-                    setMessageType('error')
-                    console.log(e);
-                })
+            if (file) {
+                fd.append("image", file, file.name);
+                fd.append("school_name", values.school_name);
+                fd.append("email", values.email);
+                fd.append("owner_name", values.owner_name);
+                fd.append("password", values.password);
 
+                axios.post(`http://localhost:5000/api/school/register`, fd)
+                    .then(res => {
+                        console.log(res);
+                        setMessage(res.data.message);
+                        setMessageType('success')
+                        Formik.resetForm(0);
+                        handleClearFile();
+                    }).catch(e => {
+                        setMessage(e.response.data.message);
+                        setMessageType('error')
+                        console.log(e);
+                    })
 
+            } else {
+                setMessageType("error")
+                setMessage("Please Add school Image!")
+            }
         },
-
-
-
-    })
+    }
+    )
     const [message, setMessage] = React.useState('');
     const [messageType, setMessageType] = React.useState('');
     const handleMessageClose = () => {
