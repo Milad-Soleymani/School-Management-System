@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import School from './school/school';
+import School from './school/School';
 import Attendance from './school/components/attendance/attendance';
 import Class from './school/components/class/Class';
 import Dashboard from './school/components/dashboard/dashboard';
