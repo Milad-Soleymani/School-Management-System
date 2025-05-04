@@ -24,7 +24,14 @@ export default function Login() {
 
             axios.post(`http://localhost:5000/api/school/login`, { ...values })
                 .then(res => {
-                    console.log(res.headers.get('Authorization'));
+                    const token = res.headers.get('Authorization');
+                    if(token){
+                        localStorage.setItem("token", token);
+                    }
+                    const user = res.data.user;
+                    if(user){
+                        localStorage.setItem("user", JSON.stringify(user));
+                    }
                     setMessage(res.data.message);
                     setMessageType('success')
                     Formik.resetForm(0);

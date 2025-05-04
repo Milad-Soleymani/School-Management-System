@@ -107,25 +107,29 @@ module.exports = {
   },
   getAllSchools: async (req, res) => {
     try {
-      const schools = await School.find().select([
-        "-password",
-        "._id",
-        "-email",
-        "-owner_name",
-        "createdAt",
-      ]);
+      const schools = await School.find().select(
+        {
+          school_name: 1,
+          school_image: 1,
+          __v: 1,
+          _id: 0
+        }
+      );
+
       res.status(200).json({
         success: true,
         message: "Success in fetching all schools.",
         schools,
       });
     } catch (error) {
+      console.error("Error in getAllSchools:", error);
       res.status(500).json({
         success: false,
         message: "Internal Server Error [ALL SCHOOL DATA].",
       });
     }
   },
+
   getSchoolOwnData: async (req, res) => {
     try {
       const id = req.user.id;
