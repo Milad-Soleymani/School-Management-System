@@ -19,6 +19,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
+    "react-swipeable-views": "^0.14.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
