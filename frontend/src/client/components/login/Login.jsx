@@ -58,13 +58,13 @@ export default function Login() {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             height: '100%',
+            minHeight: '80vh',
             paddingTop: '60px',
             paddingBottom: '60px'
         }}>
             {message &&
                 <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             }
-            <Typography variant='h2' sx={{ textAlign: 'center', marginBottom: "50px", color: 'white' }}>Login</Typography>
 
 
 
@@ -85,6 +85,7 @@ export default function Login() {
 
 
 
+                <Typography variant='h2' sx={{ textAlign: 'center', marginBottom: "50px", color: 'black' }}>Login</Typography>
 
                 <TextField
                     name='email'
@@ -109,7 +110,7 @@ export default function Login() {
 
                 {Formik.touched.password && Formik.errors.password && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.password}</p>}
 
-                <Button type='submit' variant='content'> Submit </Button>
+                <Button type='submit' variant='content' sx={{bgcolor: '#106FD5', color: 'white',}}> Submit </Button>
 
             </Box>
         </Box>
