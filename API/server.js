@@ -17,7 +17,7 @@ app.use(cors(corsOption));
 app.use(cookieParser());
 
 //! MONGODB CONNECTION
-mongoose.connect('mongodb://localhost:27017/schoolManagementPorkar')
+mongoose.connect(process.env.MONGODB_URI)
     .then(db => {
         console.log('Mongodb is connected Successfully')
     }).catch(err => {
