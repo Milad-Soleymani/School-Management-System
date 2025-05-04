@@ -1,12 +1,12 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import School from './school/School';
-import Attendance from './school/components/attendance/attendance';
+import Attendance from './school/components/attendance/Attendance';
 import Class from './school/components/class/Class';
-import Dashboard from './school/components/dashboard/dashboard';
-import Examinations from './school/components/examinations/examinations';
-import Notice from './school/components/notice/notice';
-import Schedule from './school/components/schedule/schedule';
+import Dashboard from './school/components/dashboard/Dashboard';
+import Examinations from './school/components/examinations/Examinations';
+import Notice from './school/components/notice/Notice';
+import Schedule from './school/components/schedule/Schedule';
 import Students from './school/components/students/Students';
 import Subjects from './school/components/subjects/Subjects';
 import Teachers from './school/components/teachers/Teachers';
@@ -16,7 +16,7 @@ import Home from './client/components/home/Home';
 import Login from './client/components/login/Login';
 import Teacher from './teacher/Teacher';
 import TeacherDetails from './teacher/components/teacher details/TeacherDetails';
-import ScheduleTeacher from './teacher/components/schedule/scheduleTeacher';
+import ScheduleTeacher from './teacher/components/schedule/ScheduleTeacher';
 import AttendanceTeacher from './teacher/components/attendance/AttendanceTeacher';
 import ExaminationsTeacher from './teacher/components/examinations/ExaminationsTeacher';
 import NoticeTeacher from './teacher/components/notice/NoticeTeacher';
