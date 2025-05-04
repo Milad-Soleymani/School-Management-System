@@ -107,14 +107,7 @@ module.exports = {
   },
   getAllSchools: async (req, res) => {
     try {
-      const schools = await School.find().select(
-        {
-          school_name: 1,
-          school_image: 1,
-          __v: 1,
-          _id: 0
-        }
-      );
+      const schools = await School.find().select(['-password', '-_id', '-email', '-owner_name', '-createdAt']);
 
       res.status(200).json({
         success: true,

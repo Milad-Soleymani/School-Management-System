@@ -12,6 +12,7 @@ export default function Gallery() {
 
   const [open, setOpen] = React.useState(false);
   const [selectedSchool, setSelectedSchool] = React.useState(null);
+  const [schools, setSchools] = React.useState([])
 
   const handleOpen = (school) => {
     setOpen(true);
@@ -39,7 +40,8 @@ export default function Gallery() {
   
   React.useEffect(() => {
     axios.get('http://localhost:5000/api/school/all').then(res => {
-      console.log("school", res)
+      console.log("school", res.data.schools)
+      setSchools(res.data.school)
     }).catch(e => {
         console.log(e);
     })
