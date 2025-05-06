@@ -12,7 +12,7 @@ const schoolRouter = require("./routers/school.router");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const corsOption = {exposedHeaders: "Authorization"}
+const corsOption = { exposedHeaders: "Authorization" }
 app.use(cors(corsOption));
 app.use(cookieParser());
 
