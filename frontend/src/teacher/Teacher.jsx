@@ -12,12 +12,13 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-// ! آیکون‌ها
+// ! ICONS
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -27,11 +28,8 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240; // عرض کشوی کناری (Drawer)
+const drawerWidth = 240;
 
-/**
- * باز کردن کشو در حالت کامل
- */
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -41,9 +39,6 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 });
 
-/**
- * بستن کشو به حالت کوچک
- */
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -56,9 +51,6 @@ const closedMixin = (theme) => ({
   },
 });
 
-/**
- * هدر بالای کشو
- */
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -67,9 +59,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-/**
- * نوار بالا (AppBar) با تغییر عرض هنگام باز و بسته بودن کشو
- */
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -88,9 +77,6 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-/**
- * کشوی کناری (Drawer) راست‌چین
- */
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -108,35 +94,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-/**
- * کامپوننت اصلی داشبورد دانش‌آموز
- */
-export default function Student() {
-  const theme = useTheme(); // گرفتن تم برای دسترسی به تنظیمات MUI
-  const [open, setOpen] = React.useState(false); // وضعیت باز یا بسته بودن کشو
-  const navigate = useNavigate(); // برای مسیریابی
+export default function Teacher() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
-  // باز کردن کشو
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
-  // بستن کشو
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
-  // آرایه مسیرها و آیکون‌های داشبورد
   const navArr = [
     { link: '/', component: 'خانه', icon: HomeIcon },
-    { link: '/student', component: 'اطلاعات شما', icon: DashboardIcon },
-    { link: '/student/schedule', component: 'برنامه‌ هفتگی', icon: EventIcon },
-    { link: '/student/attendance', component: 'حضور و غیاب', icon: RecentActorsIcon },
-    { link: '/student/examinations', component: 'امتحانات', icon: ExplicitIcon },
-    { link: '/student/notice', component: 'اعلان‌ها', icon: NotificationsIcon },
+    { link: '/teacher', component: 'داشبورد', icon: DashboardIcon }, // ✅ داشبورد
+    { link: '/teacher/schedule', component: 'برنامه کلاسی', icon: EventIcon },
+    { link: '/teacher/attendance', component: 'حضور و غیاب', icon: RecentActorsIcon },
+    { link: '/teacher/examinations', component: 'امتحانات', icon: ExplicitIcon },
+    { link: '/teacher/notice', component: 'اطلاعیه‌ها', icon: NotificationsIcon },
   ];
-
-  // تغییر مسیر هنگام کلیک روی هر گزینه
   const handleNavigation = (link) => {
     navigate(link);
   };
@@ -144,38 +122,32 @@ export default function Student() {
   return (
     <Box sx={{ display: 'flex', direction: 'rtl' }}>
       <CssBaseline />
-      {/* نوار بالا */}
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ marginLeft: 2, ...(open && { display: 'none' }) }}
+            edge="end"
+            sx={{
+              marginLeft: 2,
+              ...(open && { display: 'none' }),
+            }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, textAlign: 'center' }}
-          >
-            سامانه مدیریت مدرسه
+          <Typography variant="h6" noWrap component="div">
+            سامانه معلم
           </Typography>
         </Toolbar>
       </AppBar>
-
-      {/* کشوی سمت راست */}
       <Drawer variant="permanent" anchor="right" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-
-        {/* منوها */}
         <List>
           {navArr.map((navItem, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
@@ -205,8 +177,6 @@ export default function Student() {
           ))}
         </List>
       </Drawer>
-
-      {/* محتوای اصلی */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Outlet />
