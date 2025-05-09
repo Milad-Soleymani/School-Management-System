@@ -1,187 +1,196 @@
 /* eslint-disable no-unused-vars */
 
+// 📦 وارد کردن کتابخانه‌ها | Importing libraries
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { registerSchema } from '../../../yupSchema/registerSchema';
-import { useFormik } from 'formik'
-import { Button, CardMedia, Snackbar, Typography } from '@mui/material';
-import { ref } from 'yup';
+import {
+    Box,
+    TextField,
+    Button,
+    CardMedia,
+    Typography
+} from '@mui/material';
+import { useFormik } from 'formik';
 import axios from 'axios';
+
+// 📦 وارد کردن فایل‌های سفارشی | Importing custom modules
+import { registerSchema } from '../../../yupSchema/registerSchema';
 import MessageSnackbar from '../../../basic utility component/snackbar/MessageSnackbar';
+
 export default function Register() {
 
+    // 🖼️ وضعیت تصویر مدرسه | School image state
     const [file, setFile] = React.useState(null);
-    const [imageUrl, setImageUrl] = React.useState(null)
-    const addImage = (event) => {
-        const file = event.target.files[0];
-        setImageUrl(URL.createObjectURL(file));
-        setFile(file);
-    }
-    // ! RESETING IMAGE 
+    const [imageUrl, setImageUrl] = React.useState(null);
+    const fileInputRef = React.useRef(null);
 
-    const fileInputRefrence = React.useRef(null);
+    const addImage = (event) => {
+        const selectedFile = event.target.files[0];
+        setImageUrl(URL.createObjectURL(selectedFile));
+        setFile(selectedFile);
+    };
+
     const handleClearFile = () => {
-        if (fileInputRefrence.current) {
-            fileInputRefrence.current.value = ''
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
         }
         setFile(null);
         setImageUrl(null);
-    }
+    };
 
-
+    // 🧾 مقادیر اولیه فرم | Initial form values
     const initialValues = {
         school_name: "",
         email: "",
         owner_name: "",
         password: "",
         confirm_password: "",
-    }
-    const Formik = useFormik({
+    };
+
+    // 🧠 پیکربندی فرمیک | Formik config
+    const formik = useFormik({
         initialValues,
         validationSchema: registerSchema,
         onSubmit: (values) => {
-            console.log("Register submit values", values);
-            const fd = new FormData();
-
-            if (file) {
-                fd.append("image", file, file.name);
-                fd.append("school_name", values.school_name);
-                fd.append("email", values.email);
-                fd.append("owner_name", values.owner_name);
-                fd.append("password", values.password);
-
-                axios.post(`http://localhost:5000/api/school/register`, fd)
-                    .then(res => {
-                        console.log(res);
-                        setMessage(res.data.message);
-                        setMessageType('success')
-                        Formik.resetForm(0);
-                        handleClearFile();
-                    }).catch(e => {
-                        setMessage(e.response.data.message);
-                        setMessageType('error')
-                        console.log(e);
-                    })
-
-            } else {
-                setMessageType("error")
-                setMessage("Please Add school Image!")
+            if (!file) {
+                setMessage("لطفاً تصویر مدرسه را انتخاب کنید!");
+                setMessageType("error");
+                return;
             }
+
+            const formData = new FormData();
+            formData.append("image", file, file.name);
+            formData.append("school_name", values.school_name);
+            formData.append("email", values.email);
+            formData.append("owner_name", values.owner_name);
+            formData.append("password", values.password);
+
+            axios.post(`http://localhost:5000/api/school/register`, formData)
+                .then(res => {
+                    setMessage(res.data.message);
+                    setMessageType('success');
+                    formik.resetForm();
+                    handleClearFile();
+                })
+                .catch(e => {
+                    setMessage(e.response?.data?.message || 'ثبت‌نام با خطا مواجه شد');
+                    setMessageType('error');
+                    console.error(e);
+                });
         },
-    }
-    )
+    });
+
+    // 📢 وضعیت پیام | Message state
     const [message, setMessage] = React.useState('');
     const [messageType, setMessageType] = React.useState('');
-    const handleMessageClose = () => {
-        setMessage('')
-    }
+    const handleMessageClose = () => setMessage('');
 
     return (
-        <Box component={'div'} sx={{
-            background:
-                "url(https://cdn.pixabay.com/photo/2017/08/12/21/42/back2school-2635456_1280.png)",
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            height: '100%',
-            paddingTop: '60px',
-            paddingBottom: '60px'
-        }}>
-            {message &&
-                <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
-            }
-            <Typography variant='h2' sx={{ textAlign: 'center', marginBottom: "50px", color: 'white' }}>Register</Typography>
+        <Box
+            sx={{
+                background: "url(https://cdn.pixabay.com/photo/2017/08/12/21/42/back2school-2635456_1280.png)",
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                minHeight: '100vh',
+                paddingY: '60px'
+            }}
+        >
+            {/* ✅ پیام موفقیت یا خطا | Success or error message */}
+            {message && (
+                <MessageSnackbar
+                    message={message}
+                    type={messageType}
+                    handleClose={handleMessageClose}
+                />
+            )}
 
+            <Typography variant='h4' sx={{ textAlign: 'center', marginBottom: "30px", color: 'white' }}>
+                ثبت‌نام مدرسه
+            </Typography>
 
-
+            {/* 📝 فرم ثبت‌نام | Registration form */}
             <Box
                 component="form"
                 sx={{
-                    '& > :not(style)': { m: 1 }, display: 'flex',
+                    '& > :not(style)': { m: 1 },
+                    display: 'flex',
                     flexDirection: 'column',
                     width: '50vw',
                     minWidth: '230px',
                     margin: 'auto',
-                    background: '#fff'
+                    background: '#fff',
+                    padding: '30px',
+                    borderRadius: '10px',
+                    boxShadow: '0 0 10px rgba(0,0,0,0.1)'
                 }}
                 noValidate
                 autoComplete="off"
-                onSubmit={Formik.handleSubmit}
+                onSubmit={formik.handleSubmit}
             >
-
-
-                <Typography> Add School Picture </Typography>
+                <Typography> افزودن تصویر مدرسه </Typography>
                 <TextField
                     type='file'
-                    inputRef={fileInputRefrence}
-                    onChange={(event) => { addImage(event) }}
+                    inputRef={fileInputRef}
+                    onChange={addImage}
                 />
-                {imageUrl && <Box>
-                    <CardMedia component={"img"} height='240px' image={imageUrl} />
-                </Box>
-                }
-
-
+                {imageUrl && (
+                    <CardMedia component="img" height="200" image={imageUrl} />
+                )}
 
                 <TextField
                     name='school_name'
-                    label="School Name"
-                    value={Formik.values.school_name}
-                    onChange={Formik.handleChange}
-                    onBlur={Formik.handleBlur}
+                    label="نام مدرسه"
+                    value={formik.values.school_name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.school_name && Boolean(formik.errors.school_name)}
+                    helperText={formik.touched.school_name && formik.errors.school_name}
                 />
-
-
-                {Formik.touched.school_name && Formik.errors.school_name && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.school_name}</p>}
 
                 <TextField
                     name='email'
-                    label="Email"
-                    value={Formik.values.email}
-                    onChange={Formik.handleChange}
-                    onBlur={Formik.handleBlur}
+                    label="ایمیل"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
                 />
-
-
-                {Formik.touched.email && Formik.errors.email && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.email}</p>}
 
                 <TextField
                     name='owner_name'
-                    label="School owner"
-                    value={Formik.values.owner_name}
-                    onChange={Formik.handleChange}
-                    onBlur={Formik.handleBlur}
+                    label="نام مدیر مدرسه"
+                    value={formik.values.owner_name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.owner_name && Boolean(formik.errors.owner_name)}
+                    helperText={formik.touched.owner_name && formik.errors.owner_name}
                 />
-
-
-                {Formik.touched.owner_name && Formik.errors.owner_name && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.owner_name}</p>}
 
                 <TextField
                     name='password'
-                    label="Password"
+                    label="رمز عبور"
                     type='password'
-                    value={Formik.values.password}
-                    onChange={Formik.handleChange}
-                    onBlur={Formik.handleBlur}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                 />
-
-
-                {Formik.touched.password && Formik.errors.password && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.password}</p>}
 
                 <TextField
                     name='confirm_password'
-                    label="Confirm Password"
+                    label="تکرار رمز عبور"
                     type='password'
-                    value={Formik.values.confirm_password}
-                    onChange={Formik.handleChange}
-                    onBlur={Formik.handleBlur}
+                    value={formik.values.confirm_password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
+                    helperText={formik.touched.confirm_password && formik.errors.confirm_password}
                 />
 
-
-                {Formik.touched.confirm_password && Formik.errors.confirm_password && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.confirm_password}</p>}
-
-                <Button type='submit' variant='content'> Submit </Button>
-
+                <Button type='submit' variant='contained' sx={{ bgcolor: '#106FD5', color: 'white' }}>
+                    ثبت‌نام
+                </Button>
             </Box>
         </Box>
     );
