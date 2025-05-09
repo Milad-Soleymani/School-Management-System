@@ -1,20 +1,75 @@
 const mongoose = require('mongoose');
 
+//! Student Schema | مدل دانش‌آموز
+
 const studentSchema = new mongoose.Schema({
-    school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    email: { type: String, required: true },
-    name: { type: String, required: true },
-    student_class: { type: String, required: true },
-    age: { type: Number, required: true },
-    gender: { type: String, required: true },
-    guardian: { type: String, required: true },
-    guardian_phone: { type: String, required: true },
-    student_image: { type: String, required: true },
-    password: { type: String, required: true },
-    
+  // 🔗 Reference to the school | ارجاع به مدرسه
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
+  },
 
-    createdAt: { type: Date, default: new Date() }
-})
+  // 📧 Student's email | ایمیل دانش‌آموز
+  email: {
+    type: String,
+    required: true,
+  },
 
+  // 🧑‍🎓 Student's name | نام دانش‌آموز
+  name: {
+    type: String,
+    required: true,
+  },
 
-module.exports = mongoose.model('Student', studentSchema)
+  // 🏫 Class the student belongs to | کلاسی که دانش‌آموز به آن تعلق دارد
+  student_class: {
+    type: String,
+    required: true,
+  },
+
+  // 🎂 Student's age | سن دانش‌آموز
+  age: {
+    type: Number,
+    required: true,
+  },
+
+  // 🚻 Student's gender | جنسیت دانش‌آموز
+  gender: {
+    type: String,
+    required: true,
+  },
+
+  // 👨‍👩‍👧‍👦 Guardian's name | نام ولی دانش‌آموز
+  guardian: {
+    type: String,
+    required: true,
+  },
+
+  // 📱 Guardian's phone number | شماره تلفن ولی دانش‌آموز
+  guardian_phone: {
+    type: String,
+    required: true,
+  },
+
+  // 🖼️ Student's image | تصویر دانش‌آموز
+  student_image: {
+    type: String,
+    required: true,
+  },
+
+  // 🔒 Password | رمز عبور
+  password: {
+    type: String,
+    required: true,
+  },
+
+  // 🕒 Record creation date | تاریخ ثبت دانش‌آموز
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
+
+// 📦 Export the Student model | صادر کردن مدل دانش‌آموز
+module.exports = mongoose.model('Student', studentSchema);

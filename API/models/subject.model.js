@@ -1,13 +1,33 @@
 const mongoose = require('mongoose');
 
+//! Subject Schema | مدل درس
+
 const subjectSchema = new mongoose.Schema({
-    school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    subject_name: { type: String, required: true },
-    subject_codename: { type: String, required: true },
+  // 🔗 Reference to the school | ارجاع به مدرسه
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
+  },
 
+  // 📚 Subject name | نام درس
+  subject_name: {
+    type: String,
+    required: true,
+  },
 
-    createdAt: { type: Date, default: new Date() }
-})
+  // 🔑 Subject codename (unique identifier) | کدنام درس (شناسه منحصر به فرد)
+  subject_codename: {
+    type: String,
+    required: true,
+  },
 
+  // 🕒 Record creation date | تاریخ ثبت درس
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
 
-module.exports = mongoose.model('Subject', subjectSchema)
+// 📦 Export the Subject model | صادر کردن مدل درس
+module.exports = mongoose.model('Subject', subjectSchema);

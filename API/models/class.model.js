@@ -1,12 +1,40 @@
 const mongoose = require('mongoose');
 
+//! Class Schema | مدل کلاس درسی
+
 const classSchema = new mongoose.Schema({
-    school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    class_text: { type: String, required: true },
-    class_num: { type: Number, required: true },
-    attendee: { type: mongoose.Schema.ObjectId, ref: "Teacher" },
-    createdAt: { type: Date, default: new Date() }
-})
+  // 🔗 Reference to the school | ارجاع به مدرسه
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
+  },
 
+  // 🏷️ Class label (e.g. "Grade 6 - A") | متن کلاس (مثلاً: "پایه ششم - الف")
+  class_text: {
+    type: String,
+    required: true,
+  },
 
-module.exports = mongoose.model('Class', classSchema)
+  // 🔢 Class number | شماره کلاس
+  class_num: {
+    type: Number,
+    required: true,
+  },
+
+  // 👨‍🏫 Assigned teacher | معلم مسئول کلاس
+  attendee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher',
+    required: true,
+  },
+
+  // 🕒 Record creation date | تاریخ ایجاد رکورد
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
+
+// 📦 Export the Class model | صادر کردن مدل کلاس
+module.exports = mongoose.model('Class', classSchema);

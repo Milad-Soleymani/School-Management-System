@@ -1,15 +1,48 @@
 const mongoose = require('mongoose');
 
+//! Attendance Schema | مدل حضور و غیاب
+
 const attendanceSchema = new mongoose.Schema({
-    school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    student: { type: mongoose.Schema.ObjectId, ref: 'Student' },
-    class: { type: mongoose.Schema.ObjectId, ref: 'Class' },
-    date: { type: Date, required: true },
-    status: { type: String, enum: ['Present', 'Absent'], default: 'Absent' },
+  // 🔗 Reference to the school | ارجاع به مدرسه
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
+  },
 
+  // 🔗 Reference to the student | ارجاع به دانش‌آموز
+  student: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student',
+    required: true,
+  },
 
-    createdAt: { type: Date, default: new Date() }
-})
+  // 🔗 Reference to the class | ارجاع به کلاس
+  class: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Class',
+    required: true,
+  },
 
+  // 📅 Attendance date | تاریخ حضور و غیاب
+  date: {
+    type: Date,
+    required: true,
+  },
 
-module.exports = mongoose.model('Attendance', attendanceSchema)
+  // ✅ Attendance status: Present or Absent | وضعیت حضور: حاضر یا غایب
+  status: {
+    type: String,
+    enum: ['Present', 'Absent'],
+    default: 'Absent',
+  },
+
+  // 🕒 Record creation time | زمان ایجاد رکورد
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
+
+// 📦 Export the Attendance model | صادر کردن مدل Attendance
+module.exports = mongoose.model('Attendance', attendanceSchema);

@@ -1,16 +1,40 @@
 const mongoose = require('mongoose');
 
+//! Notice Schema | مدل اطلاعیه‌ها
+
 const noticeSchema = new mongoose.Schema({
-    school: { type: mongoose.Schema.ObjectId, ref: 'School' },
-    title:{type: String, requird: true},
-    message: {type:String, required: true},
-    audience:{type:String, enum:['student', 'teacher'], required: true},    
+  // 🔗 Reference to the school | ارجاع به مدرسه
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
+  },
 
+  // 📝 Title of the notice | عنوان اطلاعیه
+  title: {
+    type: String,
+    required: true, // ← اصلاح شده از "requird"
+  },
 
+  // 📩 Message content | محتوای پیام
+  message: {
+    type: String,
+    required: true,
+  },
 
+  // 🎯 Audience of the notice | مخاطب اطلاعیه
+  audience: {
+    type: String,
+    enum: ['student', 'teacher'], // فقط دانش‌آموز یا معلم
+    required: true,
+  },
 
-    createdAt: { type: Date, default: new Date() }
-})
+  // 🕒 Record creation date | تاریخ ثبت اطلاعیه
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
 
-
-module.exports = mongoose.model('Notice', noticeSchema)
+// 📦 Export the Notice model | صادر کردن مدل اطلاعیه
+module.exports = mongoose.model('Notice', noticeSchema);
