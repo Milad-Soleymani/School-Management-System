@@ -9,8 +9,12 @@ import { ref } from 'yup';
 import axios from 'axios';
 import MessageSnackbar from '../../../basic utility component/snackbar/MessageSnackbar';
 import { loginSchema } from '../../../yupSchema/loginSchema';
+import { AuthContext } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const navigate = useNavigate()
+    const {login} = React.useContext(AuthContext);
 
     const initialValues = {
         email: "",
@@ -31,10 +35,12 @@ export default function Login() {
                     const user = res.data.user;
                     if(user){
                         localStorage.setItem("user", JSON.stringify(user));
+                        login(user)
                     }
                     setMessage(res.data.message);
                     setMessageType('success')
                     Formik.resetForm(0);
+                    navigate('/school')
                 }).catch(e => {
                     setMessage(e.response.data.message);
                     setMessageType('error')
