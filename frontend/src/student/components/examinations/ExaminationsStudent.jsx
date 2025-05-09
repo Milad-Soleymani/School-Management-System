@@ -2,7 +2,7 @@ export default function ExaminationsStudent(){
 
     return(
         <>
-        <h1>Examinations Student</h1>
+        <h1>امتحانات دانش اموزان</h1>
         </>
     )
 }

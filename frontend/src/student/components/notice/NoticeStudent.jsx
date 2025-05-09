@@ -2,7 +2,7 @@ export default function NoticeStudent(){
 
     return(
         <>
-        <h1>Notice Student</h1>
+        <h1>اطلاعیه دانش اموزان</h1>
         </>
     )
 }

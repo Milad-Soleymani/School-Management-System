@@ -3,7 +3,7 @@ export default function Students() {
 
     return (
         <>
-            <h1>Students</h1>
+            <h1>دانش اموزان</h1>
         </>
     )
 }

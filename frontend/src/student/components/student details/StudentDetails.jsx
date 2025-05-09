@@ -2,7 +2,7 @@ export default function StudentDetails(){
 
     return(
         <>
-        <h1>Student Details</h1>
+        <h1>اطلاعات دانش‌آموزان</h1>
         </>
     )
 }

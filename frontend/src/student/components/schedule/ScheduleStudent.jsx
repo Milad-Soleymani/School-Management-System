@@ -2,7 +2,7 @@ export default function ScheduleStudent(){
 
     return(
         <>
-        <h1>Schedule Student</h1>
+        <h1>برنامه درسی دانش‌آموزان</h1>
         </>
     )
 }

@@ -91,7 +91,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <h1>Dashboard</h1>
+            <h1>داشبود</h1>
             {message && messageType && (
                 <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             )}

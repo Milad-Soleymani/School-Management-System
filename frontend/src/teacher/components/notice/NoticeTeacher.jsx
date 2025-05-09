@@ -2,7 +2,7 @@ export default function NoticeTeacher(){
 
     return(
         <>
-        <h1>Notice Teacher</h1>
+        <h1>اطلاعیه معلمان</h1>
         </>
     )
 }

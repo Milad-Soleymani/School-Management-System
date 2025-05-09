@@ -2,7 +2,7 @@ export default function AttendanceStudent() {
 
     return (
         <>
-            <h1>Attendance Student</h1>
+            <h1>حضور و غیاب دانش اموزان</h1>
         </>
     )
 }

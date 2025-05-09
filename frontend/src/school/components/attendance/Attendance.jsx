@@ -3,7 +3,7 @@ export default function Attendance() {
 
     return (
         <>
-            <h1>Attendance</h1>
+            <h1>حضور و غیاب</h1>
         </>
     )
 }

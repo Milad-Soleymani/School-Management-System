@@ -3,7 +3,7 @@ export default function Teachers() {
 
     return (
         <>
-            <h1>Teachers</h1>
+            <h1>معلمان</h1>
         </>
     )
 }
