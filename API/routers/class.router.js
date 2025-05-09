@@ -22,7 +22,7 @@ router.get('/all', authMiddleware(['SCHOOL']), getAllClasses);
 router.patch('/update/:id', authMiddleware(['SCHOOL']), updateClassWithId);
 
 // 📜 Delete class | حذف کلاس 
-router.get('/delete/:id', authMiddleware(['SCHOOL']), deleteClassWithId);
+router.delete('/delete/:id', authMiddleware(['SCHOOL']), deleteClassWithId);
 
 // 📦 Export router | صادر کردن روت‌ها
 module.exports = router;
