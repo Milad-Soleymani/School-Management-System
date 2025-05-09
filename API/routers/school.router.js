@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/register', registerSchool);   // * School register  router
 router.get('/all', getAllSchools);  // * Get all schools router
 router.post('/login', loginSchool);  // *  School login router
-router.patch('update', authMiddleware(['SCHOOL']), updateSchool);   // * School update router 
+router.patch('/update', authMiddleware(['SCHOOL']), updateSchool);   // * School update router 
 router.get('/fetch-single', authMiddleware(['SCHOOL']), getSchoolOwnData);  // * School fetch single data router
 
 
