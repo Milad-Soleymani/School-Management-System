@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-// 📝 فایل Teacher برای داشبورد معلم | Teacher Dashboard Component for School Management (Teacher)
-
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,13 +12,12 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-// ! آیکون‌ها | Icons
+// ! آیکون‌ها
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -30,9 +27,11 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240; // 📏 عرض منوی کناری | Sidebar width
+const drawerWidth = 240; // عرض کشوی کناری (Drawer)
 
-// 🎨 استایل باز شدن منو
+/**
+ * باز کردن کشو در حالت کامل
+ */
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -42,7 +41,9 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 });
 
-// 🎨 استایل بسته بودن منو
+/**
+ * بستن کشو به حالت کوچک
+ */
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -55,7 +56,9 @@ const closedMixin = (theme) => ({
   },
 });
 
-// 🧱 هدر منو برای دکمه بستن
+/**
+ * هدر بالای کشو
+ */
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -64,7 +67,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-// 📌 AppBar سفارشی
+/**
+ * نوار بالا (AppBar) با تغییر عرض هنگام باز و بسته بودن کشو
+ */
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -83,7 +88,9 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-// 📌 Drawer سفارشی (منوی کناری)
+/**
+ * کشوی کناری (Drawer) راست‌چین
+ */
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -101,104 +108,108 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Teacher() {
-  const theme = useTheme(); // 🎨 استفاده از تم متریال
-  const [open, setOpen] = React.useState(false); // 🔓 وضعیت باز/بسته بودن منو
-  const navigate = useNavigate(); // 🔀 هدایت کاربر
+/**
+ * کامپوننت اصلی داشبورد دانش‌آموز
+ */
+export default function Student() {
+  const theme = useTheme(); // گرفتن تم برای دسترسی به تنظیمات MUI
+  const [open, setOpen] = React.useState(false); // وضعیت باز یا بسته بودن کشو
+  const navigate = useNavigate(); // برای مسیریابی
 
+  // باز کردن کشو
   const handleDrawerOpen = () => {
-    setOpen(true); // ⬅️ باز کردن منو
+    setOpen(true);
   };
 
+  // بستن کشو
   const handleDrawerClose = () => {
-    setOpen(false); // ➡️ بستن منو
+    setOpen(false);
   };
 
-  // 📚 مسیرهای منو برای معلم
+  // آرایه مسیرها و آیکون‌های داشبورد
   const navArr = [
     { link: '/', component: 'خانه', icon: HomeIcon },
-    { link: '/teacher/schedule', component: 'برنامه کلاسی', icon: EventIcon },
-    { link: '/teacher/attendance', component: 'حضور و غیاب', icon: RecentActorsIcon },
-    { link: '/teacher/examinations', component: 'امتحانات', icon: ExplicitIcon },
-    { link: '/teacher/notice', component: 'اطلاعیه‌ها', icon: NotificationsIcon },
+    { link: '/student', component: 'اطلاعات شما', icon: DashboardIcon },
+    { link: '/student/schedule', component: 'برنامه‌ هفتگی', icon: EventIcon },
+    { link: '/student/attendance', component: 'حضور و غیاب', icon: RecentActorsIcon },
+    { link: '/student/examinations', component: 'امتحانات', icon: ExplicitIcon },
+    { link: '/student/notice', component: 'اعلان‌ها', icon: NotificationsIcon },
   ];
 
-  // 🧭 عملکرد کلیک روی آیتم‌های منو
+  // تغییر مسیر هنگام کلیک روی هر گزینه
   const handleNavigation = (link) => {
     navigate(link);
   };
 
   return (
     <Box sx={{ display: 'flex', direction: 'rtl' }}>
-      <CssBaseline /> {/* 🔧 ریست استایل‌ها */}
-      
-      {/* 🔷 نوار بالایی */}
+      <CssBaseline />
+      {/* نوار بالا */}
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge="end"
-            sx={{
-              marginLeft: 2,
-              ...(open && { display: 'none' }),
-            }}
+            edge="start"
+            sx={{ marginLeft: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            سامانه معلم
+          <Typography variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, textAlign: 'center' }}
+          >
+            سامانه مدیریت مدرسه
           </Typography>
         </Toolbar>
       </AppBar>
 
-      {/* 🟦 منوی کناری */}
+      {/* کشوی سمت راست */}
       <Drawer variant="permanent" anchor="right" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
         <Divider />
+
+        {/* منوها */}
         <List>
-          {/* 🔄 رندر کردن آیتم‌های منو */}
-          {navArr.map((navItem, index) => {
-            const Icon = navItem.icon;
-            return (
-              <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
+          {navArr.map((navItem, index) => (
+            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+                onClick={() => handleNavigation(navItem.link)}
+              >
+                <ListItemIcon
                   sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
                   }}
-                  onClick={() => handleNavigation(navItem.link)}
                 >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Icon /> {/* 🎯 آیکون هر آیتم */}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={navItem.component}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+                  <navItem.icon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={navItem.component}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
 
-      {/* 🟩 محتوای اصلی صفحه */}
+      {/* محتوای اصلی */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader /> {/* جای خالی برای Toolbar */}
-        <Outlet /> {/* 📤 خروجی برای روت‌های داخلی */}
+        <DrawerHeader />
+        <Outlet />
       </Box>
     </Box>
   );
