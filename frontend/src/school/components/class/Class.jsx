@@ -98,7 +98,7 @@ export default function Class() {
             {message &&
                 <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             }
-            <Typography variant="h1" sx={{textAlign: 'center'}}> درس </Typography>
+            <Typography variant="h1" sx={{textAlign: 'center',}}> کلاس </Typography>
             <Box
                 component="form"
                 sx={{
@@ -141,11 +141,11 @@ export default function Class() {
                 {Formik.touched.class_num && Formik.errors.class_num && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.class_num}</p>}
 
                 <Button type='submit' variant='contained' sx={{ bgcolor: '#106FD5', color: 'white' }}>
-                    Submit
+                    ثبت
                 </Button>
 
                 {edit &&
-                    <Button type='button' variant='contained' onClick={() => { cancelEdit() }} sx={{ bgcolor: 'red', color: 'white', }}> Cancel </Button>
+                    <Button type='button' variant='contained' onClick={() => { cancelEdit() }} sx={{ bgcolor: 'red', color: 'white', }}> لغو </Button>
                 }
             </Box>
             <Box component={'div'} sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
