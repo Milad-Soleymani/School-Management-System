@@ -174,13 +174,17 @@ module.exports = {
           Object.keys(fields).forEach((field) => {
             school[field] = fields[field][0];
           });
-          await school.save();
-          res.status(200).json({
-            success: true,
-            message: "School updated successfully.",
-            school,
-          });
+          school['school_image'] = originalFileName
+
+        } else {
+          school['school_name'] = fields.school_name[0]
         }
+        await school.save();
+        res.status(200).json({
+          success: true,
+          message: "School updated successfully.",
+          school,
+        });
       });
     } catch (error) {
       res
