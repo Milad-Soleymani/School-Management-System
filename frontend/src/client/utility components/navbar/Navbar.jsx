@@ -1,20 +1,17 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useNavigate } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar'; // 📦 Importing AppBar component from MUI | وارد کردن کامپوننت AppBar از MUI
+import Box from '@mui/material/Box'; // 📦 Importing Box component from MUI | وارد کردن کامپوننت Box از MUI
+import Toolbar from '@mui/material/Toolbar'; // 📦 Importing Toolbar component from MUI | وارد کردن کامپوننت Toolbar از MUI
+import IconButton from '@mui/material/IconButton'; // 📦 Importing IconButton component from MUI | وارد کردن کامپوننت IconButton از MUI
+import Typography from '@mui/material/Typography'; // 📦 Importing Typography component from MUI | وارد کردن کامپوننت Typography از MUI
+import Menu from '@mui/material/Menu'; // 📦 Importing Menu component from MUI | وارد کردن کامپوننت Menu از MUI
+import MenuIcon from '@mui/icons-material/Menu'; // 📦 Importing MenuIcon from MUI icons | وارد کردن MenuIcon از آیکون‌های MUI
+import Container from '@mui/material/Container'; // 📦 Importing Container component from MUI | وارد کردن کامپوننت Container از MUI
+import AdbIcon from '@mui/icons-material/Adb'; // 📦 Importing AdbIcon from MUI icons | وارد کردن AdbIcon از آیکون‌های MUI
+import Button from '@mui/material/Button'; // 📦 Importing Button component from MUI | وارد کردن کامپوننت Button از MUI
+import { useNavigate } from 'react-router-dom'; // 📦 Importing useNavigate hook for navigation | وارد کردن هوک useNavigate برای ناوبری
 
-// const pages = ['Products', 'Pricing', 'Blog'];
+// 📝 Define the pages for the navigation bar | تعریف صفحات برای نوار ناوبری
 const pages = [
     { link: '/', component: 'Home' },
     { link: '/login', component: 'Login' },
@@ -22,26 +19,30 @@ const pages = [
 ];
 
 function Navbar() {
+    // 📝 State to control menu anchor element | حالت برای کنترل عنصر لنگر منو
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
+    // 📝 Handle opening the menu | هندلر برای باز کردن منو
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    const navigate = useNavigate()
+    const navigate = useNavigate(); // 📝 useNavigate hook to navigate between pages | استفاده از هوک useNavigate برای جابجایی بین صفحات
 
+    // 📝 Handle closing the menu and navigate to selected page | هندلر برای بستن منو و جابجایی به صفحه انتخاب شده
     const handleCloseNavMenu = (link) => {
-        setAnchorElNav(null);
-        navigate(link);
+        setAnchorElNav(null); // 📝 Close the menu | بستن منو
+        navigate(link); // 📝 Navigate to the selected link | جابجایی به لینک انتخاب شده
     };
-
-
 
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    {/* Logo Icon for large screens | آیکون لوگو برای صفحه‌نمایش‌های بزرگ */}
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
+                    {/* Main title for large screens | عنوان اصلی برای صفحه‌نمایش‌های بزرگ */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -60,6 +61,7 @@ function Navbar() {
                         SCHOOL MANAGEMENT SYSTEM
                     </Typography>
 
+                    {/* Mobile menu button for small screens | دکمه منو برای صفحه‌نمایش‌های کوچک */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -88,13 +90,17 @@ function Navbar() {
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page, i) => (
-                                <MenuItem key={i} onClick={()=>{handleCloseNavMenu(page.link)}}>
+                                <MenuItem key={i} onClick={() => handleCloseNavMenu(page.link)}>
                                     <Typography sx={{ textAlign: 'center' }}>{page.component}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
+
+                    {/* Logo Icon for small screens | آیکون لوگو برای صفحه‌نمایش‌های کوچک */}
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+                    {/* Main title for small screens | عنوان اصلی برای صفحه‌نمایش‌های کوچک */}
                     <Typography
                         variant="h5"
                         noWrap
@@ -113,11 +119,13 @@ function Navbar() {
                     >
                         LOGO
                     </Typography>
+
+                    {/* Navigation buttons for large screens | دکمه‌های ناوبری برای صفحه‌نمایش‌های بزرگ */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page, i) => (
                             <Button
                                 key={i}
-                                onClick={()=>{handleCloseNavMenu(page.link)}}
+                                onClick={() => handleCloseNavMenu(page.link)}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page.component}
@@ -129,4 +137,5 @@ function Navbar() {
         </AppBar>
     );
 }
+
 export default Navbar;
