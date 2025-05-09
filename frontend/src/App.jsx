@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import School from './school/School';
 import Attendance from './school/components/attendance/Attendance';
 import Class from './school/components/class/Class';
@@ -30,14 +30,15 @@ import ProtectedRoute from './guard/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
-
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
           {/* SCHOOL ROUTE */}
-
-          <Route path='school' element={<ProtectedRoute allowedRoles={['SCHOOL']}><School /></ProtectedRoute>}>
+          <Route 
+            path='school' 
+            element={<ProtectedRoute allowedRoles={['SCHOOL']}><School /></ProtectedRoute>} 
+          >
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='attendance' element={<Attendance />} />
@@ -48,43 +49,42 @@ function App() {
             <Route path='students' element={<Students />} />
             <Route path='subjects' element={<Subjects />} />
             <Route path='teachers' element={<Teachers />} />
-
           </Route>
+
           {/* STUDENT */}
-          <Route path='student' element={<ProtectedRoute alloewedRoles={['STUDENT']}><Student /></ProtectedRoute>}>
+          <Route 
+            path='student' 
+            element={<ProtectedRoute allowedRoles={['STUDENT']}><Student /></ProtectedRoute>}
+          >
             <Route index element={<StudentDetails />} />
             <Route path='schedule' element={<ScheduleStudent />} />
             <Route path='attendance' element={<AttendanceStudent />} />
             <Route path='examinations' element={<ExaminationsStudent />} />
             <Route path='notice' element={<NoticeStudent />} />
-
           </Route>
+
           {/* TEACHER */}
-          <Route path='teacher' element={<ProtectedRoute alloewedRoles={['TEACHER']}><Teacher /></ProtectedRoute>}>
+          <Route 
+            path='teacher' 
+            element={<ProtectedRoute allowedRoles={['TEACHER']}><Teacher /></ProtectedRoute>}
+          >
             <Route index element={<TeacherDetails />} />
             <Route path='schedule' element={<ScheduleTeacher />} />
             <Route path='attendance' element={<AttendanceTeacher />} />
             <Route path='examinations' element={<ExaminationsTeacher />} />
             <Route path='notice' element={<NoticeTeacher />} />
           </Route>
-          {/* CLIENT */}
 
+          {/* CLIENT */}
           <Route path='/' element={<Client />}>
             <Route index element={<Home />} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
-
-
           </Route>
-
-
-
         </Routes>
-
-
       </BrowserRouter>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;
