@@ -26,7 +26,6 @@ const classSchema = new mongoose.Schema({
   attendee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Teacher',
-    required: true,
   },
 
   // 🕒 Record creation date | تاریخ ایجاد رکورد
