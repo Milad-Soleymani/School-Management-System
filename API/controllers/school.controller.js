@@ -126,7 +126,7 @@ module.exports = {
   getSchoolOwnData: async (req, res) => {
     try {
       const id = req.user.id;
-      const school = await School.findOne({ _id: id });
+      const school = await School.findOne({ _id: id }).select('-password');
       if (school) {
         res.status(200).json({ success: true, school });
       } else {
