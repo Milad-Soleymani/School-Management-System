@@ -58,7 +58,7 @@ module.exports = {
             const classExamConut = (await Exam.find({ class: id, school: schoolId })).length;
             const classScheduleCount = (await Schedule.find({ class: id, school: schoolId })).length;
 
-            if ((classStudentCount === 0) && (classExamConut === 0) && (classScheduleCount)) {
+            if ((classStudentCount === 0) && (classExamConut === 0) && (classScheduleCount === 0 )) {
 
                 await Class.findOneAndDelete({ _id: id, school: schoolId })
 
