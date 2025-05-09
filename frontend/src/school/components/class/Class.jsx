@@ -36,7 +36,7 @@ export default function Class() {
     const handleDelete = (id) => {
         console.log(id)
         axios.delete(`${baseApi}/class/delete/${id}`).then(res => {
-            setMessage(res.data.message)
+            setMessage("کلاس با موفقیت ایجاد شد")
             setMessageType('success')
 
         }).catch(err => {
@@ -98,7 +98,7 @@ export default function Class() {
             {message &&
                 <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             }
-            <h1> کلاس </h1>
+            <Typography variant="h1" sx={{textAlign: 'center'}}> درس </Typography>
             <Box
                 component="form"
                 sx={{
