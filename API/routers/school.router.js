@@ -1,17 +1,31 @@
 const express = require('express');
-const authMiddleware = require("../auth/auth.js")
-const { registerSchool, getAllSchools, loginSchool, updateSchool, getSchoolOwnData } = require('../controllers/school.controller.js');
+const authMiddleware = require("../auth/auth.js");
+const { 
+  registerSchool, 
+  getAllSchools, 
+  loginSchool, 
+  updateSchool, 
+  getSchoolOwnData 
+} = require('../controllers/school.controller.js');
 
 const router = express.Router();
 
-// ! Routers
+//! Routers | روت‌ها
 
+// 📜 Register a new school | ثبت یک مدرسه جدید
+router.post('/register', registerSchool); 
 
-router.post('/register', registerSchool);   // * School register  router
-router.get('/all', getAllSchools);  // * Get all schools router
-router.post('/login', loginSchool);  // *  School login router
-router.patch('/update', authMiddleware(['SCHOOL']), updateSchool);   // * School update router 
-router.get('/fetch-single', authMiddleware(['SCHOOL']), getSchoolOwnData);  // * School fetch single data router
+// 📜 Get all registered schools | دریافت لیست تمامی مدارس ثبت‌شده
+router.get('/all', getAllSchools);  
 
+// 📜 Login school | ورود به سیستم مدرسه
+router.post('/login', loginSchool);  
 
+// 📜 Update school data | به‌روزرسانی اطلاعات مدرسه
+router.patch('/update', authMiddleware(['SCHOOL']), updateSchool); 
+
+// 📜 Fetch own school's data | دریافت اطلاعات مدرسه خود (با احراز هویت)
+router.get('/fetch-single', authMiddleware(['SCHOOL']), getSchoolOwnData);  
+
+// 📦 Export router | صادر کردن روت‌ها
 module.exports = router;
