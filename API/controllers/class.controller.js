@@ -33,6 +33,7 @@ module.exports = {
 
         } catch (err) {
             res.status(500).json({ success: false, message: 'Server Error in Creating class' });
+            console.log(err)
         }
     },
     updateClassWithId: async (req, res) => {
