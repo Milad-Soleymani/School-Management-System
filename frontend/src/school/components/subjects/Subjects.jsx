@@ -103,7 +103,7 @@ export default function Subjects() {
                 sx={{
                     '& > :not(style)': { m: 1 }, display: 'flex',
                     flexDirection: 'column',
-                    width: '50vw',
+                    width: '100%',
                     minWidth: '230px',
                     margin: 'auto',
                     background: '#fff'
@@ -139,12 +139,12 @@ export default function Subjects() {
 
                 {Formik.touched.subject_codename && Formik.errors.subject_codename && <p style={{ color: "red", textTransform: "capitalize" }}>{Formik.errors.subject_codename}</p>}
 
-                <Button type='submit' variant='contained' sx={{ bgcolor: '#106FD5', color: 'white' }}>
-                    Submit
+                <Button  type='submit' variant='contained' sx={{ bgcolor: '#106FD5', color: 'white',width: '120px' }}>
+                    ثبت
                 </Button>
 
                 {edit &&
-                    <Button type='button' variant='contained' onClick={() => { cancelEdit() }} sx={{ bgcolor: 'red', color: 'white', }}> Cancel </Button>
+                    <Button  type='button' variant='contained' onClick={() => { cancelEdit() }} sx={{ bgcolor: 'red', color: 'white',width: '120px' }}> لغو </Button>
                 }
             </Box>
             <Box component={'div'} sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>

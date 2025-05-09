@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser'); // 🍪 Middleware to parse cooki
 //! Import Routers | وارد کردن روت‌ها
 const schoolRouter = require("./routers/school.router"); // 🏫 School routes | روت‌های مدرسه
 const classRouter = require("./routers/class.router"); // 🏫 Class routes | روت‌های کلاس
+const subjectRouter = require("./routers/subject.router"); // 🏫 Class routes | روت‌های کلاس
 //! Create express app & apply middleware | ایجاد اپلیکیشن اکسپرس و اعمال میانه‌افزارها
 const app = express(); 
 app.use(express.json()); // 📄 Parse JSON request bodies | تجزیه بدنه درخواست‌های JSON
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI) // 🔗 Connect to MongoDB | اتصا�
 //! Routers | روت‌ها
 app.use('/api/school', schoolRouter); // 🏫 School routes | روت‌های مدرسه
 app.use('/api/class', classRouter); // 🏫 Class routes | روت‌های کلاس
+app.use('/api/subject', subjectRouter); // 🏫 Class routes | روت‌های کلاس
 //! Start the server | راه‌اندازی سرور
 const PORT = process.env.PORT; // 📍 Server port | پورت سرور
 app.listen(PORT, () => {

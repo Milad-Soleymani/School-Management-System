@@ -18,7 +18,7 @@ const classSchema = new mongoose.Schema({
 
   // 🔢 Class number | شماره کلاس
   class_num: {
-    type: Number,
+    type: String,
     required: true,
   },
 
