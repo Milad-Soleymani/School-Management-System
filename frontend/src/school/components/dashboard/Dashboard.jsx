@@ -46,7 +46,7 @@ export default function Dashboard() {
                 setMessageType('success');
                 fetchSchool(); // برای دریافت داده‌های به‌روزرسانی شده
                 setTimeout(() => {
-                    cancelEdit(); // بستن حالت ویرایش بعد از 2 ثانیه
+                    cancelEdit(); // بستن حالت ویرایش بعد از 1 ثانیه
                 }, 1000);
             })
             .catch(e => {
@@ -91,7 +91,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <h1>داشبود</h1>
+            <h1>داشبورد</h1>
             {message && messageType && (
                 <MessageSnackbar message={message} type={messageType} handleClose={handleMessageClose} />
             )}

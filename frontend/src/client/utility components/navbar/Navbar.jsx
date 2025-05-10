@@ -117,7 +117,7 @@ function Navbar() {
                             textDecoration: 'none',
                         }}
                     >
-                        لوگو | LOGO
+                        سامانه مدیریت مدرسه | SMS
                     </Typography>
 
                     {/* دکمه‌های ناوبری برای صفحه‌نمایش‌های بزرگ | Navigation buttons for large screens */}
